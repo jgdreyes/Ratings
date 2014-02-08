@@ -7,15 +7,39 @@
 //
 
 #import "PSAppDelegate.h"
+#import "PSPlayer.h"
+#import "PSPlayersViewController.h"
 
 @implementation PSAppDelegate
+    NSMutableArray *players;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+	players = [NSMutableArray arrayWithCapacity:20];
+	PSPlayer *player = [[PSPlayer alloc] init];
+	player.name = @"Bill Evans";
+	player.game = @"Tic-Tac-Toe";
+	player.rating = 4;
+	[players addObject:player];
+	player = [[PSPlayer alloc] init];
+	player.name = @"Oscar Peterson";
+	player.game = @"Spin the Bottle";
+	player.rating = 5;
+	[players addObject:player];
+	player = [[PSPlayer alloc] init];
+	player.name = @"Dave Brubeck";
+	player.game = @"Texas Hold’em Poker";
+	player.rating = 2;
+	[players addObject:player];
+    
+    // Getting the playersViewController from storyboard
+	UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+	UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:0];
+	PSPlayersViewController *playersViewController = [[navigationController viewControllers] objectAtIndex:0];
+	playersViewController.players = players;
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
